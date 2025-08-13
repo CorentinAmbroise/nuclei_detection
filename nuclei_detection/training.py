@@ -505,8 +505,8 @@ def pseudo_labeling_strategy(model, unlabeled_images, channel_means, channel_std
 def train_with_pseudo_labeling(train_images, train_labels, test_images, test_labels,
                               unlabeled_images, channel_means, channel_stds,
                               val_images=None, val_labels=None, initial_model_path=None,
-                              num_epochs=50, batch_size=16, learning_rate=0.001,
-                              weight_decay=1e-4, confidence_threshold=0.95,
+                              n_iterations=3, num_epochs=50, batch_size=16,
+                              learning_rate=0.001, weight_decay=1e-4, confidence_threshold=0.95,
                               device=None, verbose=1, **kwargs):
     """
     Training with pseudo-labeling strategy
@@ -570,9 +570,9 @@ def train_with_pseudo_labeling(train_images, train_labels, test_images, test_lab
         print(f"\n🔄 PHASE 2: Iterative training with pseudo-labeling")
         print("-" * 60)
 
-    for iteration in range(3):  # Maximum 3 iterations of pseudo-labeling
+    for iteration in range(n_iterations):
         if verbose > 0:
-            print(f"\n--- ITERATION {iteration + 1}/3 ---")
+            print(f"\n--- ITERATION {iteration + 1}/{n_iterations} ---")
 
         # Generate pseudo-labels
         pseudo_images, pseudo_labels = pseudo_labeling_strategy(
