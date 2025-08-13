@@ -119,7 +119,6 @@ uv run main.py display-wsi-with-mask \
 **Key Challenges Identified:**
 - Overfitting due to small dataset size
 - Effective utilization of unlabeled data
-- Generalization to different staining and imaging conditions
 
 ### 2. Model Architecture
 
@@ -146,7 +145,6 @@ Output: (2,) Logits for [NO_NUCLEUS, NUCLEI]
 **Design Rationale:**
 - LeNet-5 chosen for its simplicity and effectiveness on smaller datasets
 - Dropout layer added to prevent overfitting
-- Architecture adapted to handle 256x256 RGB input instead of original 32x32 grayscale
 
 ### 3. Training Methodology
 
