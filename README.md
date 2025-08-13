@@ -156,12 +156,12 @@ Output: (2,) Logits for [NO_NUCLEUS, NUCLEI]
    - Train on labeled data with heavy regularization
    - Data augmentation: geometric transforms, color jitter, cutout
    - Early stopping with validation monitoring
+   - Label smoothing to provide better calibrated models with less confidence
 
 2. **Pseudo-Labeling (Semi-Supervised Learning)**
    - Use trained model to label unlabeled tiles
    - Confidence thresholding to ensure quality pseudo-labels
    - Iterative refinement over multiple cycles
-   - Label smoothing to provide better calibrated models with less confidence (which tends to overfit on poorly classified pseudo-labeled images)
 
 3. **Regularization Techniques**
    - Weight decay (L2 regularization): 1e-4
@@ -201,7 +201,7 @@ The training pipeline monitors comprehensive metrics:
 - Training command used:
 ```bash
 uv run main.py train-model-with-regularization ./data/dataset_nuclei_tiles \
-    --strategy pseudo_labeling --use-cutout --patience 5 --validation
+    --strategy pseudo_labeling --use-cutout --patience 5 --validation --label-smoothing 0.1
 ```
 
 ### Training Visualization
@@ -244,12 +244,11 @@ uv run main.py display-wsi-with-mask \
 ### Deliverables
 
 1. **Trained Model**: `models/nuclei_classifier_pseudo_labeling.pth`
-   - Binary classifier for NUCLEI/NO_NUCLEI detection
+   - Binary classifier for NUCLEI/NO_NUCLEUS detection
 
-2. **Generated Binary Masks**: Saved as PNG files
+2. **Generated Binary Masks**: Saved as PNG files. All wsi crops masks and one WSI mask are available
    - Example: mask for `wsi_crop_1.jpg` named `wsi_crop_1_nuclei_mask.png`
-   - White pixels = nuclei regions, Black pixels = background
-   - Overlaid visualizations available via display commands and a sample for two WSI is provided
+   - Overlaid visualizations available via display commands and a sample for the WSI is provided
 
 
 ## Future Improvements

@@ -9,7 +9,7 @@ from nuclei_detection.training import (
 
 def train_classification_model(data_path, num_epochs=20, batch_size=32, learning_rate=0.001):
     """
-    Complete pipeline: data exploration + model training
+    Train a classification model on the tile dataset.
 
     Args:
         data_path (str): Path to the folder containing the data
@@ -68,8 +68,6 @@ def train_classification_model(data_path, num_epochs=20, batch_size=32, learning
     }, model_path)
 
     print(f"Model saved to: {model_path}")
-
-    return model, history
 
 
 def train_with_anti_overfitting(data_path, strategy="regularization", num_epochs=30, 

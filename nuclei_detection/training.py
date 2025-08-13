@@ -27,7 +27,7 @@ def train_model(train_images, train_labels, test_images, test_labels,
                 channel_means, channel_stds, val_images=None,
                 val_labels=None, num_epochs=20, batch_size=32, 
                 learning_rate=0.001, device=None):
-    """Main training loop"""
+    """Trains a classification model on the tile dataset."""
 
     # Device configuration
     if device is None:
@@ -57,7 +57,6 @@ def train_model(train_images, train_labels, test_images, test_labels,
     # Define the loss function and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
     # Lists to store metrics
     train_losses = []
@@ -111,9 +110,6 @@ def train_model(train_images, train_labels, test_images, test_labels,
         # Evaluate on the validation dataset
         val_metrics = evaluate_model(model, val_loader, device)
 
-        # Update learning rate
-        # scheduler.step()
-
         # Store metrics
         train_losses.append(train_loss)
         train_accuracies.append(train_acc)
@@ -128,7 +124,6 @@ def train_model(train_images, train_labels, test_images, test_labels,
         print(f"Validation Precision: {val_metrics['precision']:.4f}, "
               f"Validation Recall: {val_metrics['recall']:.4f}, "
               f"Validation F1: {val_metrics['f1']:.4f}")
-        # print(f"Learning Rate: {scheduler.get_last_lr()[0]:.6f}")
         print("-" * 60)
 
     print("Training completed!")
@@ -510,7 +505,7 @@ def train_with_pseudo_labeling(train_images, train_labels, test_images, test_lab
                               device=None, verbose=1, **kwargs):
     """
     Training with pseudo-labeling strategy
-    
+
     Args:
         train_images: Labeled training images
         train_labels: Labeled training labels
@@ -588,7 +583,7 @@ def train_with_pseudo_labeling(train_images, train_labels, test_images, test_lab
         # Add pseudo-labels to training data
         augmented_train_images = np.concatenate([current_train_images, pseudo_images], axis=0)
         augmented_train_labels = np.concatenate([current_train_labels, pseudo_labels], axis=0)
-        
+
         if verbose > 0:
             print(f"📈 Augmented dataset: {len(current_train_images)} → "
                 f"{len(augmented_train_images)} images")

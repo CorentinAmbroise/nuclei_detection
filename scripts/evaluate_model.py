@@ -5,6 +5,7 @@ from nuclei_detection.loader import load_model, load_data
 from nuclei_detection.dataset import CustomImageDataset, create_transforms
 from nuclei_detection.evaluation import evaluate_model, plot_confusion_matrix
 
+
 def evaluate_saved_model(data_path, model_path, batch_size=32):
     """Evaluate a saved model on the test dataset"""
 
