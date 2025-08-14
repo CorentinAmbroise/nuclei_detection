@@ -47,7 +47,7 @@ def train_model(train_images, train_labels, test_images, test_labels,
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
-    if val_dataset is not None:
+    if val_images is not None:
         val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     else:
         val_loader = test_loader
