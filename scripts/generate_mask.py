@@ -176,9 +176,6 @@ def generated_nuclei_mask(wsi_path, model_path, patch_size=256, stride=128, batc
         chunk_probs = prob_accumulation[start_row:end_row, :, :].copy()
         chunk_counts = count_matrix[start_row:end_row, :].copy()
 
-        # Avoid division by zero
-        chunk_counts[chunk_counts == 0] = 1
-
         # Average probabilities
         chunk_probs = chunk_probs / chunk_counts[:, :, np.newaxis]
 

@@ -101,7 +101,8 @@ uv run main.py evaluate-model ./data/dataset_nuclei_tiles \
 # Generate mask for a WSI crop
 uv run main.py generate-nuclei-mask \
     --wsi-path ./data/wsi_crops/wsi_crop_1.jpg \
-    --model-path ./models/nuclei_classifier_pseudo_labeling.pth
+    --model-path ./models/nuclei_classifier_pseudo_labeling.pth --stride 32
+    --batch-size 256
 
 # Display results with overlay visualization
 uv run main.py display-wsi-with-mask \
@@ -226,7 +227,8 @@ For complete whole slide images (requires unzipped `dataset_WSI.zip`):
 # Process full WSI (disk memory-intensive)
 uv run main.py generate-nuclei-mask \
     --wsi-path ./data/dataset_WSI/H0709980/H0709980-01.ndpi \
-    --model-path ./models/nuclei_classifier_pseudo_labeling.pth
+    --model-path ./models/nuclei_classifier_pseudo_labeling.pth --stride 128 \
+    --batch-size 256
 
 # Visualize it along with its produced mask
 uv run main.py display-wsi-with-mask \
@@ -244,7 +246,7 @@ uv run main.py display-wsi-with-mask \
 1. **Trained Model**: `models/nuclei_classifier_pseudo_labeling.pth`
    - Binary classifier for NUCLEI/NO_NUCLEUS detection
 
-2. **Generated Binary Masks**: Saved as PNG files. All wsi crops masks and one WSI mask are available
+2. **Generated Binary Masks**: Saved as PNG files. All wsi crops masks (stride 32) and one WSI mask (stride 128) are available
    - Example: mask for `wsi_crop_1.jpg` named `wsi_crop_1_nuclei_mask.png`
    - Overlaid visualizations available via display commands and a sample for the WSI is provided
 
