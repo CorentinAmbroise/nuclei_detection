@@ -589,6 +589,8 @@ def train_with_pseudo_labeling(train_images, train_labels, test_images, test_lab
                 f"{len(augmented_train_images)} images")
 
         # Retrain with augmented data
+        if "label_smoothing" in kwargs:
+            del kwargs["label_smoothing"]
         model, metrics = train_model_with_regularization(
             augmented_train_images, augmented_train_labels, test_images, test_labels,
             channel_means, channel_stds, val_images=val_images, val_labels=val_labels,
