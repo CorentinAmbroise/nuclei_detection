@@ -52,7 +52,7 @@ def train_model(train_images, train_labels, test_images, test_labels,
     else:
         val_loader = test_loader
     # Initialize the model
-    model = LeNet5(num_classes=2).to(device)
+    model = LeNet5(num_classes=2, dropout_rate=0).to(device)
 
     # Define the loss function and optimizer
     criterion = nn.CrossEntropyLoss()
